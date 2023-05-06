@@ -10,7 +10,7 @@ class MyHomePage2 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = counter6(100);
+    final provider = counter2;
     ref.listen(provider, (v1, v2) {
       if (v2 % 5 == 0) {
         ScaffoldMessenger.of(context)
@@ -22,7 +22,7 @@ class MyHomePage2 extends ConsumerWidget {
           );
       }
     });
-    final count = ref.watch(provider);
+    // final count = ref.watch(provider);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -34,16 +34,18 @@ class MyHomePage2 extends ConsumerWidget {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$count',
-              style: Theme.of(context).textTheme.headline4,
+            Consumer(
+              builder: (context, ref, child) => Text(
+                '${ref.watch(provider)}',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ref.read(provider.notifier).increment();
+          ref.read(provider.notifier).state=100;
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

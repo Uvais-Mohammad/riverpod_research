@@ -1,17 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_research/main.dart';
 
-class Counter5 extends ConsumerWidget {
-  const Counter5({
+class Counter1 extends ConsumerWidget {
+  const Counter1({
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String title = 'Future Provider';
-
-    final count = ref.watch(counter5);
+    final provider = counter1;
+    String title = 'Simple Provider';
+    ref.listen(provider, (v1, v2) {});
+    final count = ref.watch(provider);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -23,18 +26,16 @@ class Counter5 extends ConsumerWidget {
             const Text(
               'You have pushed the button this many times:',
             ),
-            !count.isLoading
-                ? Text(
-                    '${count.value}',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  )
-                : const CircularProgressIndicator(),
+            Text(
+              '$count',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // ref.read(provider).increment();
+          log(ref.read(provider).toString());
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

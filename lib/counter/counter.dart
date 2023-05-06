@@ -11,4 +11,10 @@ class CounterMain extends StateNotifier<CounterState> {
     await Future.delayed(const Duration(seconds: 3));
     state = state.copyWith(isLoading: false, counter: state.counter + 1);
   }
+
+  void decrement() async {
+    state = state.copyWith(isLoading: true);
+    await Future.delayed(const Duration(seconds: 3));
+    state = state.copyWith(isLoading: false, counter: state.counter - 1);
+  }
 }
